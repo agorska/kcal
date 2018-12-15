@@ -11,25 +11,31 @@
     />
     <ul>
        <li v-for="item in results" :key="item.food_name">
-         <a href="#" v-on:click="nutrition">{{ item.food_name }}</a>
+         <a href="#" v-on:click="getNutrition(item.food_name)">{{ item.food_name }}</a>
         </li>
     </ul>
-    <div v-for="item in roman" :key="item.food_name"> {{ item }} </div>
+    <div v-for="item in fullNutritions" :key="item.id">
+      <nutri-details :nutritionDetails="fullNutritions"></nutri-details>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import nutriDetails from '@/components/Nutri-details';
 
 export default {
   name: 'home',
+  components: {
+    nutriDetails,
+  },
   data() {
     return {
       searchFood: '',
       results: [],
-      nutritions: '',
-      roman: [],
+      getNutritions: '',
+      fullNutritions: [],
     };
   },
   methods: {
@@ -48,8 +54,8 @@ export default {
         console.log(error);
       });
     }, 500),
-    nutrition: function (el) {
-      this.nutritions = el.path[0].innerText.toString();
+    getNutrition: function (el) {
+      this.getNutritions = el;
       axios({
         method: 'post',
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
@@ -60,10 +66,11 @@ export default {
           'Content-Type': 'application/json',
         },
         data: {
-          query: this.nutritions,
+          query: this.getNutritions,
         },
       }).then((response) => {
-        this.roman = (response.data.foods);
+        this.fullNutritions = (response.data.foods);
+        console.log(response.data.foods);
       }).catch((error) => {
         console.log(error);
       });
