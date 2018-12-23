@@ -15,31 +15,29 @@
         </li>
     </ul>
     <div v-for="item in fullNutritions" :key="item.id">
-      <nutri-details :nutritionDetails="fullNutritions"></nutri-details>
+      <div>{{ filteredArr }}</div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
-import nutriDetails from '@/components/Nutri-details';
 
 export default {
   name: 'home',
-  components: {
-    nutriDetails,
-  },
   data() {
     return {
       searchFood: '',
       results: [],
       getNutritions: '',
       fullNutritions: [],
+      allNutri: '',
+      filteredArr: [],
     };
   },
   methods: {
-    handleInput: debounce(function () {
+    handleInput: debounce (function () {
       axios({
         method: 'get',
         url: `https://trackapi.nutritionix.com/v2/search/instant?query=${this.searchFood}`,
@@ -71,6 +69,18 @@ export default {
       }).then((response) => {
         this.fullNutritions = (response.data.foods);
         console.log(response.data.foods);
+        // filter for wanted nutrients
+        const arr = [];
+        const nutriIds = [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573];
+        this.allNutri = this.fullNutritions[0].full_nutrients;
+        for (let i = 0; i < nutriIds.length; i++) {
+          for (let j = 0; j < this.allNutri.length; j++) {
+            if (this.allNutri[j].attr_id === nutriIds[i]) {
+              arr.push(this.allNutri[j]);
+            }
+          }
+        }
+        this.filteredArr = arr;
       }).catch((error) => {
         console.log(error);
       });
