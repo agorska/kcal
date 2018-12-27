@@ -6,26 +6,32 @@
       name="searchFood"
       class="home-search__input"
       v-model="searchFood"
-      @input="handleInput"
-      placeholder="Write product name"
+      @input="handleInput()"
+      @keyup="detectDeleting"
+      placeholder="Write a product name"
     />
     <ul>
        <li v-for="item in results" :key="item.food_name">
          <a href="#" v-on:click="getNutrition(item.food_name)">{{ item.food_name }}</a>
-        </li>
+       </li>
     </ul>
-    <div v-for="item in fullNutritions" :key="item.id">
-      <div>{{ filteredArr }}</div>
-    </div>
-    </div>
+    <nutritions
+      :fullNutritions = "fullNutritions"
+      :filteredNutriArr = "filteredNutriArr"
+    />
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import nutritions from '@/components/Nutritions.vue';
 
 export default {
   name: 'home',
+  components: {
+    nutritions,
+  },
   data() {
     return {
       searchFood: '',
@@ -33,11 +39,11 @@ export default {
       getNutritions: '',
       fullNutritions: [],
       allNutri: '',
-      filteredArr: [],
+      filteredNutriArr: [],
     };
   },
   methods: {
-    handleInput: debounce (function () {
+    handleInput: debounce(function () {
       axios({
         method: 'get',
         url: `https://trackapi.nutritionix.com/v2/search/instant?query=${this.searchFood}`,
@@ -52,6 +58,21 @@ export default {
         console.log(error);
       });
     }, 500),
+    filterNutritions() {
+      // filter for just wanted nutrients
+      const arr = [];
+      const nutriIds = [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573];
+      this.allNutri = this.fullNutritions[0].full_nutrients;
+      for (let i = 0; i < nutriIds.length; i++) {
+        for (let j = 0; j < this.allNutri.length; j++) {
+          if (this.allNutri[j].attr_id === nutriIds[i]) {
+            arr.push(this.allNutri[j]);
+          }
+        }
+      }
+      this.filteredNutriArr = arr;
+      console.log(arr);
+    },
     getNutrition: function (el) {
       this.getNutritions = el;
       axios({
@@ -68,22 +89,14 @@ export default {
         },
       }).then((response) => {
         this.fullNutritions = (response.data.foods);
-        console.log(response.data.foods);
-        // filter for wanted nutrients
-        const arr = [];
-        const nutriIds = [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573];
-        this.allNutri = this.fullNutritions[0].full_nutrients;
-        for (let i = 0; i < nutriIds.length; i++) {
-          for (let j = 0; j < this.allNutri.length; j++) {
-            if (this.allNutri[j].attr_id === nutriIds[i]) {
-              arr.push(this.allNutri[j]);
-            }
-          }
-        }
-        this.filteredArr = arr;
+        this.filterNutritions();
+        this.results = [];
       }).catch((error) => {
         console.log(error);
       });
+    },
+    detectDeleting: function () {
+      this.searchFood === '' ? this.filteredNutriArr = '' : this.filteredNutriArr;
     },
   },
 };
