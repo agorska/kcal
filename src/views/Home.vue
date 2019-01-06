@@ -18,7 +18,6 @@
     <nutritions
       :allDetails = "allDetails"
       :filteredIds = "filteredIds"
-      :resultsDetailsWantedIds = "resultsDetailsWantedIds"
     />
   </div>
 </template>
@@ -90,7 +89,7 @@ export default {
       }).then((response) => {
         this.allDetails = (response.data.foods);
         this.filterResults();
-        //clear list of results after click
+        //  clear list of results after click
         this.results = [];
       }).catch((error) => {
         console.log(error);
