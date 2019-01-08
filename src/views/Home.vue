@@ -19,6 +19,9 @@
       :allDetails = "allDetails"
       :filteredIds = "filteredIds"
     />
+    <calculator 
+      :filteredIds = "filteredIds"
+    />
   </div>
 </template>
 
@@ -26,6 +29,7 @@
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 import nutritions from '@/components/Nutritions.vue';
+import calculator from '@/components/Calculator.vue';
 
 export default {
   name: 'home',
@@ -36,11 +40,10 @@ export default {
     return {
       search: '',
       results: [],
-      pickedResult: '',
       allDetails: [],
       resultsDetailsAllIds: '',
       filteredIds: [],
-      resultsDetailsWantedIds: [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
+      resultsDetailsWantedIds: [203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
     };
   },
   methods: {
@@ -72,8 +75,7 @@ export default {
       }
       this.filteredIds = arr;
     },
-    resultsDetails: function (el) {
-      this.pickedResult = el;
+    resultsDetails: function (pickedResults) {
       axios({
         method: 'post',
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
@@ -84,7 +86,7 @@ export default {
           'Content-Type': 'application/json',
         },
         data: {
-          query: this.pickedResult,
+          query: pickedResults,
         },
       }).then((response) => {
         this.allDetails = (response.data.foods);

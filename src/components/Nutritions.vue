@@ -1,7 +1,8 @@
 <template>
     <div>
+        {{ filteredIds }}
         <ul v-for="item in filteredIds" :key="item.id">
-            <li> {{ translateIds(item.attr_id) }} {{ item.value }} </li>
+          <li> {{ translateIds(item.attr_id) }} {{ item.value }} </li>
         </ul>
     </div>
 </template>
@@ -13,6 +14,14 @@ export default {
   methods: {
     translateIds: function (el) {
       switch (el) {
+        case 203:
+          return 'Protein ';
+        case 204:
+          return 'Fat ';
+        case 255:
+          return 'Water ';
+        case 269:
+          return 'Sugar ';
         case 301:
           return 'Calcium ';
         case 303:
