@@ -1,8 +1,7 @@
 <template>
     <div>
-        {{ filteredIds }}
         <ul v-for="item in filteredIds" :key="item.id">
-          <li> {{ translateIds(item.attr_id) }} {{ item.value }} </li>
+          <li> {{ translateIds(item.attr_id) }} {{ item.value }}</li>
         </ul>
     </div>
 </template>
@@ -10,9 +9,9 @@
 <script>
 export default {
   name: 'nutritions',
-  props: ['allDetails', 'filteredIds'],
+  props: ['filteredIds'],
   methods: {
-    translateIds: function (el) {
+    translateIds(el) {
       switch (el) {
         case 203:
           return 'Protein ';

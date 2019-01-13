@@ -12,15 +12,19 @@
     />
     <ul>
        <li v-for="item in results" :key="item.food_name">
-         <a href="#" v-on:click="resultsDetails(item.food_name)">{{ item.food_name }}</a>
+         <a href="#"
+         v-on:click="
+           resultsDetails(item.food_name)"
+         > {{ item.food_name }}
+         </a>
        </li>
     </ul>
     <nutritions
-      :allDetails = "allDetails"
       :filteredIds = "filteredIds"
     />
-    <calculator 
+    <eaten
       :filteredIds = "filteredIds"
+      :resultsDetailsWantedIds = "resultsDetailsWantedIds"
     />
   </div>
 </template>
@@ -29,21 +33,23 @@
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 import nutritions from '@/components/Nutritions.vue';
-import calculator from '@/components/Calculator.vue';
+import eaten from '@/components/Eaten.vue';
 
 export default {
   name: 'home',
   components: {
     nutritions,
+    eaten,
   },
   data() {
     return {
       search: '',
       results: [],
+      pickedResult: '',
       allDetails: [],
       resultsDetailsAllIds: '',
       filteredIds: [],
-      resultsDetailsWantedIds: [203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
+      resultsDetailsWantedIds: [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
     };
   },
   methods: {
@@ -75,7 +81,8 @@ export default {
       }
       this.filteredIds = arr;
     },
-    resultsDetails: function (pickedResults) {
+    resultsDetails(el) {
+      this.pickedResult = el;
       axios({
         method: 'post',
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
@@ -86,7 +93,7 @@ export default {
           'Content-Type': 'application/json',
         },
         data: {
-          query: pickedResults,
+          query: this.pickedResult,
         },
       }).then((response) => {
         this.allDetails = (response.data.foods);
@@ -98,7 +105,7 @@ export default {
       });
     },
     // clear list of details when deleting word in input
-    detectDeleting: function () {
+    detectDeleting() {
       this.search === '' ? this.filteredIds = '' : this.filteredIds;
     },
   },

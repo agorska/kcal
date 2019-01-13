@@ -1,10 +1,10 @@
 <template>
-    <div>{{ filteredIds }}</div>
+    <div> {{ toCalc }} </div>
 </template>
 
 <script>
 export default {
-    name: 'calculator',
-    props: ['filteredIds'],
-}
+  name: 'calculator',
+  props: ['predictor', 'toCalc'],
+};
 </script>
