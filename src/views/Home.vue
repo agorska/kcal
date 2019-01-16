@@ -25,6 +25,7 @@
     <eaten
       :filteredIds = "filteredIds"
       :resultsDetailsWantedIds = "resultsDetailsWantedIds"
+      :allDetails = "allDetails"
     />
   </div>
 </template>

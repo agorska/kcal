@@ -9,12 +9,14 @@
         <input
             type="button"
             value="Add"
-            @click="addToCalculation()"
+            @click="addToCalculation(); addToListEaten()"
         />
         <calculator
             :toCalc = "toCalc"
             :predictor = "predictor"
         />
+        <h3>Eaten:</h3>
+        <div> {{ listEaten }} </div>
     </div>
 </template>
 
@@ -24,7 +26,7 @@ import { translateIds } from '@/functions';
 
 export default {
   name: 'eaten',
-  props: ['filteredIds', 'resultsDetailsWantedIds'],
+  props: ['filteredIds', 'resultsDetailsWantedIds', 'allDetails'],
   components: {
     calculator,
   },
@@ -32,6 +34,8 @@ export default {
     return {
       predictor: '',
       toCalc: [],
+      productWeight: '',
+      listEaten: [],
     };
   },
   methods: {
@@ -43,7 +47,12 @@ export default {
       for (let i = 0; i < this.filteredIds.length; i++) {
         obj[translateIds(this.filteredIds[i].attr_id)] = this.filteredIds[i].value;
       }
+      obj["weight"] = this.allDetails[0].serving_weight_grams;
       this.toCalc.push(obj);
+    },
+    addToListEaten() {
+      this.listEaten.push(this.allDetails[0].food_name);
+      console.log(this.listEaten);
     },
   },
 };
