@@ -73,8 +73,8 @@ export default {
       // filter for just wanted results
       const arr = [];
       this.resultsDetailsAllIds = this.allDetails[0].full_nutrients;
-      for (let i = 0; i < this.resultsDetailsWantedIds.length; i++) {
-        for (let j = 0; j < this.resultsDetailsAllIds.length; j++) {
+      for (let i = 0; i < this.resultsDetailsWantedIds.length; i += 1) {
+        for (let j = 0; j < this.resultsDetailsAllIds.length; j += 1) {
           if (this.resultsDetailsAllIds[j].attr_id === this.resultsDetailsWantedIds[i]) {
             arr.push(this.resultsDetailsAllIds[j]);
           }

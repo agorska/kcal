@@ -16,7 +16,12 @@
             :predictor = "predictor"
         />
         <h3>Eaten:</h3>
-        <div> {{ listEaten }} </div>
+        <ul>
+          <li v-for="(item, index) in listEaten" :key="item.id">
+            {{ item }} {{ index }}
+            <button @click="removeEaten(index);">-</button>
+          </li>
+        </ul>
     </div>
 </template>
 
@@ -44,15 +49,18 @@ export default {
     },
     addToCalculation() {
       const obj = {};
-      for (let i = 0; i < this.filteredIds.length; i++) {
+      for (let i = 0; i < this.filteredIds.length; i += 1) {
         obj[translateIds(this.filteredIds[i].attr_id)] = this.filteredIds[i].value;
       }
-      obj["weight"] = this.allDetails[0].serving_weight_grams;
+      obj.weight = this.allDetails[0].serving_weight_grams;
       this.toCalc.push(obj);
     },
     addToListEaten() {
       this.listEaten.push(this.allDetails[0].food_name);
-      console.log(this.listEaten);
+    },
+    removeEaten(n) {
+      this.listEaten.splice(n, 1);
+      this.toCalc.splice(n, 1);
     },
   },
 };
