@@ -4,7 +4,6 @@
             type="text"
             placeholder="Grams"
             v-model="predictor"
-            @input="handleInput()"
         />
         <input
             type="button"
@@ -31,7 +30,7 @@ import { translateIds } from '@/functions';
 
 export default {
   name: 'eaten',
-  props: ['filteredIds', 'resultsDetailsWantedIds', 'allDetails'],
+  props: ['filteredIds', 'allDetails'],
   components: {
     calculator,
   },
@@ -39,20 +38,20 @@ export default {
     return {
       predictor: '',
       toCalc: [],
-      productWeight: '',
       listEaten: [],
     };
   },
   methods: {
-    handleInput() {
-      console.log(this.predictor);
+    calcPerPredictor(value, weight) {
+      return (value * this.predictor) / weight;
     },
     addToCalculation() {
       const obj = {};
-      for (let i = 0; i < this.filteredIds.length; i += 1) {
-        obj[translateIds(this.filteredIds[i].attr_id)] = this.filteredIds[i].value;
-      }
       obj.weight = this.allDetails[0].serving_weight_grams;
+      // Assign keys and proper values, based on predictor
+      for (let i = 0; i < this.filteredIds.length; i += 1) {
+        obj[translateIds(this.filteredIds[i].attr_id)] = this.calcPerPredictor(this.filteredIds[i].value, obj.weight);
+      }
       this.toCalc.push(obj);
     },
     addToListEaten() {

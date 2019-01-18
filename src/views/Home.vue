@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="home">
     <input
@@ -19,12 +20,11 @@
          </a>
        </li>
     </ul>
-    <nutritions
+    <itemNutritions
       :filteredIds = "filteredIds"
     />
     <eaten
       :filteredIds = "filteredIds"
-      :resultsDetailsWantedIds = "resultsDetailsWantedIds"
       :allDetails = "allDetails"
     />
   </div>
@@ -33,13 +33,13 @@
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
-import nutritions from '@/components/Nutritions.vue';
+import itemNutritions from '@/components/Item-nutritions.vue';
 import eaten from '@/components/Eaten.vue';
 
 export default {
   name: 'home',
   components: {
-    nutritions,
+    itemNutritions,
     eaten,
   },
   data() {
@@ -50,7 +50,7 @@ export default {
       allDetails: [],
       resultsDetailsAllIds: '',
       filteredIds: [],
-      resultsDetailsWantedIds: [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
+      resultsWantedIds: [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
     };
   },
   methods: {
@@ -73,9 +73,9 @@ export default {
       // filter for just wanted results
       const arr = [];
       this.resultsDetailsAllIds = this.allDetails[0].full_nutrients;
-      for (let i = 0; i < this.resultsDetailsWantedIds.length; i += 1) {
+      for (let i = 0; i < this.resultsWantedIds.length; i += 1) {
         for (let j = 0; j < this.resultsDetailsAllIds.length; j += 1) {
-          if (this.resultsDetailsAllIds[j].attr_id === this.resultsDetailsWantedIds[i]) {
+          if (this.resultsDetailsAllIds[j].attr_id === this.resultsWantedIds[i]) {
             arr.push(this.resultsDetailsAllIds[j]);
           }
         }
