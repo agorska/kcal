@@ -1,7 +1,8 @@
 <template>
     <div>
-      <div> {{ toCalc }} </div><br>
-      <div> {{ sumObjectsByKey(toCalc) }}</div>
+      <div v-for="(value, key) in sumObjectsByKey(toCalc)" :key="value.id">
+        {{ key }} {{ value }}
+      </div>
     </div>
 </template>
 

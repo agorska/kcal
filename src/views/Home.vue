@@ -50,7 +50,9 @@ export default {
       allDetails: [],
       resultsDetailsAllIds: '',
       filteredIds: [],
-      resultsWantedIds: [301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573],
+      resultsWantedIds: [
+        203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573
+      ],
     };
   },
   methods: {

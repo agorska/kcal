@@ -17,7 +17,7 @@
         <h3>Eaten:</h3>
         <ul>
           <li v-for="(item, index) in listEaten" :key="item.id">
-            {{ item }} {{ index }}
+            {{ item }}
             <button @click="removeEaten(index);">-</button>
           </li>
         </ul>
