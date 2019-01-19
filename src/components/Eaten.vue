@@ -21,11 +21,15 @@
             <button @click="removeEaten(index);">-</button>
           </li>
         </ul>
+        <norms
+          :whoNorms="whoNorms"
+        />
     </div>
 </template>
 
 <script>
 import calculator from '@/components/Calculator.vue';
+import norms from '@/components/Norms.vue';
 import { translateIds } from '@/functions';
 
 export default {
@@ -33,12 +37,32 @@ export default {
   props: ['filteredIds', 'allDetails'],
   components: {
     calculator,
+    norms,
   },
   data() {
     return {
       predictor: '',
       toCalc: [],
       listEaten: [],
+      whoNorms: {
+        Protein: 60,
+        Fat: 80,
+        Carbs: 340,
+        Water: 2500,
+        Calcium: 1300,
+        Iron: 11,
+        Magnesium: 410,
+        Potassium: 4700,
+        Sodium: 1500,
+        Zinc: 11,
+        'Vit. A': 900,
+        'Vit. D': 600,
+        'Vit. C': 90,
+        'Vit. B6': 1.3,
+        'Vit. B12': 2.4,
+        'Vit. K': 120,
+        'Vit. E': 15,
+      },
     };
   },
   methods: {

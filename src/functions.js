@@ -1,38 +1,38 @@
 export function translateIds (el) {
   switch (el) {
     case 203:
-      return 'Protein ';
+      return 'Protein';
     case 204:
-      return 'Fat ';
+      return 'Fat';
     case 255:
-      return 'Water ';
+      return 'Water';
     case 269:
-      return 'Sugar ';
+      return 'Carbs';
     case 301:
-      return 'Calcium ';
+      return 'Calcium';
     case 303:
-      return 'Iron ';
+      return 'Iron';
     case 304:
-      return 'Magnesium ';
+      return 'Magnesium';
     case 306:
-      return 'Potassium ';
+      return 'Potassium';
     case 307:
-      return 'Sodium ';
+      return 'Sodium';
     case 309:
-      return 'Zinc ';
-    case 318:
-      return 'Vit. A ';
-    case 328:
-      return 'Vit. D ';
+      return 'Zinc';
+    case 320:
+      return 'Vit. A';
+    case 324:
+      return 'Vit. D';
     case 401:
-      return 'Vit. C ';
+      return 'Vit. C';
     case 415:
-      return 'Vit. B6 ';
+      return 'Vit. B6';
     case 418:
-      return 'Vit. B12 ';
+      return 'Vit. B12';
     case 430:
-      return 'Vit. K ';
+      return 'Vit. K';
     case 573:
-      return 'Vit. E ';
+      return 'Vit. E';
   }
 }
