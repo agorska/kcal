@@ -1,32 +1,46 @@
 /* eslint-disable */
 <template>
   <div class="home">
-    <input
-      type="text"
-      id="searchFood"
-      name="searchFood"
-      class="home-search__input"
-      v-model="search"
-      @input="handleInput()"
-      @keyup="detectDeleting"
-      placeholder="Write a product name"
-    />
-    <ul>
-       <li v-for="item in results" :key="item.food_name">
-         <a href="#"
-         v-on:click="
-           resultsDetails(item.food_name)"
-         > {{ item.food_name }}
-         </a>
-       </li>
-    </ul>
-    <itemNutritions
-      :filteredIds = "filteredIds"
-    />
-    <eaten
-      :filteredIds = "filteredIds"
-      :allDetails = "allDetails"
-    />
+   <nav class="main-nav">
+      <tabs>
+        <tab name="one" :selected="true">
+          <h1>Z</h1>
+          <p>dfgkdfgkjdfkgjdfkjgdkfjg</p>
+        </tab>
+        <tab name="two">
+          <h1>Y</h1>
+          <p>tsfdkgjdfkjgdkfjg</p>
+        </tab>
+      </tabs>
+    </nav>
+    <div class="main-container">
+      <input
+        type="text"
+        id="searchFood"
+        name="searchFood"
+        class="home-search__input"
+        v-model="search"
+        @input="handleInput()"
+        @keyup="detectDeleting"
+        placeholder="search for a product"
+      />
+      <ul>
+        <li v-for="item in results" :key="item.food_name">
+          <a href="#"
+          v-on:click="
+            resultsDetails(item.food_name)"
+          > {{ item.food_name }}
+          </a>
+        </li>
+      </ul>
+      <itemNutritions
+        :filteredIds = "filteredIds"
+      />
+      <eaten
+        :filteredIds = "filteredIds"
+        :allDetails = "allDetails"
+      />
+    </div>
   </div>
 </template>
 
@@ -35,12 +49,16 @@ import axios from 'axios';
 import debounce from 'lodash.debounce';
 import itemNutritions from '@/components/Item-nutritions.vue';
 import eaten from '@/components/Eaten.vue';
+import tabs from '@/components/Tabs.vue';
+import tab from '@/components/Tab.vue';
 
 export default {
   name: 'home',
   components: {
     itemNutritions,
     eaten,
+    tabs,
+    tab,
   },
   data() {
     return {
@@ -51,7 +69,8 @@ export default {
       resultsDetailsAllIds: '',
       filteredIds: [],
       resultsWantedIds: [
-        203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573
+        203, 204, 269, 255, 301, 303, 304, 306, 307, 309,
+        318, 328, 401, 415, 418, 430, 573,
       ],
     };
   },
