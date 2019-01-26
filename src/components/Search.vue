@@ -7,6 +7,7 @@
         class="home-search__input"
         v-model='search'
         @input="handleInput()"
+        v-on:keyup.delete="clearList()"
         placeholder="Write a product name"
       />
     </div>

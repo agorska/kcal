@@ -1,9 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="container">
-    <addFood>
-      <addAmount></addAmount>
-    </addFood>
+    <addFood></addFood>
     <eatenList>
       <addedFood></addedFood>
     </eatenList>
@@ -48,7 +46,6 @@
 <script>
 
 import addFood from '@/components/Add-food.vue';
-import addAmount from '@/components/Add-amount.vue';
 
 import eatenList from '@/components/Eaten-list.vue';
 import addedFood from '@/components/Added-food.vue';
@@ -62,7 +59,6 @@ export default {
   name: 'home',
   components: {
     addFood,
-    addAmount,
     eatenList,
     addedFood,
     nutritions,
@@ -83,21 +79,6 @@ export default {
     };
   },
   methods: {
-    handleInput: debounce(function () {
-      axios({
-        method: 'get',
-        url: `https://trackapi.nutritionix.com/v2/search/instant?query=${this.search}`,
-        headers: {
-          'x-app-id': '740969e3',
-          'x-app-key': '04d25b3db76aca93f78186a4987563e8',
-          'x-remote-user-id': '0',
-        },
-      }).then((response) => {
-        this.results = (response.data.common);
-      }).catch((error) => {
-        console.log(error);
-      });
-    }, 500),
     filterResults() {
       // filter for just wanted results
       const arr = [];

@@ -1,14 +1,43 @@
 <template>
   <div>
     <div v-for="item in searchList" :key="item.id">
-      <a href="#"> {{ item.food_name }} </a>
+      <a href="#" v-on:click="pickedFoodDetails(item.food_name)"> {{ item.food_name }} </a>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name:'resultsList',
   props: ['searchList'],
+  data() {
+    return {
+      foodItemDetails: [],
+    };
+  },
+  methods: {
+    pickedFoodDetails(el) {
+      axios({
+        method: 'post',
+        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
+        headers: {
+          'x-app-id': '740969e3',
+          'x-app-key': '04d25b3db76aca93f78186a4987563e8',
+          'x-remote-user-id': '0',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          query: el,
+        },
+      }).then((response) => {
+        (this.foodItemDetails).push(response.data.foods);
+        this.$emit('pickitem', this.foodItemDetails);
+      }).catch((error) => {
+        console.log(error);
+      });
+    },
+  },
 };
 </script>
