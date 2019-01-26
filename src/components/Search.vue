@@ -1,0 +1,48 @@
+<template>
+    <div>
+      <input
+        type="text"
+        id="searchFood"
+        name="searchFood"
+        class="home-search__input"
+        v-model='search'
+        @input="handleInput()"
+        placeholder="Write a product name"
+      />
+    </div>
+</template>
+
+<script>
+import { debounce } from 'lodash';
+import axios from 'axios';
+
+export default {
+  name: 'search',
+  props: ['value'],
+  data() {
+    return {
+      search: '',
+    };
+  },
+  methods: {
+    handleInput: debounce(function () {
+      axios({
+        method: 'get',
+        url: `https://trackapi.nutritionix.com/v2/search/instant?query=${this.search}`,
+        headers: {
+          'x-app-id': '740969e3',
+          'x-app-key': '04d25b3db76aca93f78186a4987563e8',
+          'x-remote-user-id': '0',
+        },
+      }).then((response) => {
+        const results = (response.data.common);
+        this.$emit('getList', results);
+      }).catch((error) => {
+        console.log(error);
+      });
+    }, 
+    500),
+  },
+};
+</script>
+

@@ -1,7 +1,20 @@
 /* eslint-disable */
 <template>
-  <div class="home">
-    <input
+  <div class="container">
+    <addFood>
+      <addAmount></addAmount>
+    </addFood>
+    <eatenList>
+      <addedFood></addedFood>
+    </eatenList>
+    <data>
+      <mainData></mainData>
+      <mainData></mainData>
+      <detailsData></detailsData>
+    </data>
+
+
+  <!--  <input
       type="text"
       id="searchFood"
       name="searchFood"
@@ -27,22 +40,36 @@
       :filteredIds = "filteredIds"
       :allDetails = "allDetails"
     />
+      -->
   </div>
+
 </template>
 
 <script>
-import axios from 'axios';
-import debounce from 'lodash.debounce';
-import itemNutritions from '@/components/Item-nutritions.vue';
-import eaten from '@/components/Eaten.vue';
+
+import addFood from '@/components/Add-food.vue';
+import addAmount from '@/components/Add-amount.vue';
+
+import eatenList from '@/components/Eaten-list.vue';
+import addedFood from '@/components/Added-food.vue';
+
+import nutritions from '@/components/Nutritions.vue';
+import mainData from '@/components/Main-data.vue';
+import detailsData from '@/components/Details-data.vue';
+
 
 export default {
   name: 'home',
   components: {
-    itemNutritions,
-    eaten,
+    addFood,
+    addAmount,
+    eatenList,
+    addedFood,
+    nutritions,
+    mainData,
+    detailsData,
   },
-  data() {
+/*   data() {
     return {
       search: '',
       results: [],
@@ -111,6 +138,6 @@ export default {
     detectDeleting() {
       this.search === '' ? this.filteredIds = '' : this.filteredIds;
     },
-  },
+  }, */
 };
 </script>
