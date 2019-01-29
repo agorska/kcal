@@ -14,7 +14,7 @@ export default {
   props: ['searchList'],
   data() {
     return {
-      foodItemDetails: [],
+      foodItemDetails: '',
     };
   },
   methods: {
@@ -32,8 +32,8 @@ export default {
           query: el,
         },
       }).then((response) => {
-        (this.foodItemDetails).push(response.data.foods);
-        this.$emit('pickitem', this.foodItemDetails);
+        this.foodItemDetails = response.data.foods;
+        this.$emit('pickitem', this.foodItemDetails[0]);
       }).catch((error) => {
         console.log(error);
       });

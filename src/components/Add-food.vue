@@ -2,8 +2,7 @@
   <div>
     <search v-on:getList="display($event)"></search>
     <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
-    <addAmount :searchList="searchList"></addAmount>
-    <div>{{ foodEaten }}</div>
+    <addAmount :searchList="searchList" :foodEaten="foodEaten"></addAmount>
   </div>
 </template>
 
@@ -22,7 +21,7 @@ export default {
   data() {
     return {
       searchList: [],
-      foodEaten: [],
+      foodEaten: '',
       foodItemDetails: [],
     };
   },
