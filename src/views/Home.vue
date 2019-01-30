@@ -1,16 +1,8 @@
-/* eslint-disable */
 <template>
   <div class="container">
     <addFood></addFood>
-    <eatenList>
-      <addedFood></addedFood>
-    </eatenList>
-    <data>
-      <mainData></mainData>
-      <mainData></mainData>
-      <detailsData></detailsData>
-    </data>
-
+    <eatenList></eatenList>
+    <charts></charts>
 
   <!--  <input
       type="text"
@@ -46,79 +38,34 @@
 <script>
 
 import addFood from '@/components/Add-food.vue';
-
 import eatenList from '@/components/Eaten-list.vue';
-import addedFood from '@/components/Added-food.vue';
-
-import nutritions from '@/components/Nutritions.vue';
-import mainData from '@/components/Main-data.vue';
-import detailsData from '@/components/Details-data.vue';
-
+import charts from '@/components/Charts.vue';
 
 export default {
   name: 'home',
   components: {
     addFood,
     eatenList,
-    addedFood,
-    nutritions,
-    mainData,
-    detailsData,
+    charts,
   },
-/*   data() {
-    return {
-      search: '',
-      results: [],
-      pickedResult: '',
-      allDetails: [],
-      resultsDetailsAllIds: '',
-      filteredIds: [],
-      resultsWantedIds: [
-        203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573
-      ],
-    };
-  },
-  methods: {
-    filterResults() {
-      // filter for just wanted results
-      const arr = [];
-      this.resultsDetailsAllIds = this.allDetails[0].full_nutrients;
-      for (let i = 0; i < this.resultsWantedIds.length; i += 1) {
-        for (let j = 0; j < this.resultsDetailsAllIds.length; j += 1) {
-          if (this.resultsDetailsAllIds[j].attr_id === this.resultsWantedIds[i]) {
-            arr.push(this.resultsDetailsAllIds[j]);
-          }
-        }
-      }
-      this.filteredIds = arr;
-    },
-    resultsDetails(el) {
-      this.pickedResult = el;
-      axios({
-        method: 'post',
-        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-        headers: {
-          'x-app-id': '740969e3',
-          'x-app-key': '04d25b3db76aca93f78186a4987563e8',
-          'x-remote-user-id': '0',
-          'Content-Type': 'application/json',
-        },
-        data: {
-          query: this.pickedResult,
-        },
-      }).then((response) => {
-        this.allDetails = (response.data.foods);
-        this.filterResults();
-        //  clear list of results after click
-        this.results = [];
-      }).catch((error) => {
-        console.log(error);
-      });
-    },
-    // clear list of details when deleting word in input
-    detectDeleting() {
-      this.search === '' ? this.filteredIds = '' : this.filteredIds;
-    },
-  }, */
+  // methods: {
+  //   filterResults() {
+  //     // filter for just wanted results
+  //     const arr = [];
+  //     this.resultsDetailsAllIds = this.allDetails[0].full_nutrients;
+  //     for (let i = 0; i < this.resultsWantedIds.length; i += 1) {
+  //       for (let j = 0; j < this.resultsDetailsAllIds.length; j += 1) {
+  //         if (this.resultsDetailsAllIds[j].attr_id === this.resultsWantedIds[i]) {
+  //           arr.push(this.resultsDetailsAllIds[j]);
+  //         }
+  //       }
+  //     }
+  //     this.filteredIds = arr;
+  //   },
+  //   // clear list of details when deleting word in input
+  //   detectDeleting() {
+  //     this.search === '' ? this.filteredIds = '' : this.filteredIds;
+  //   },
+  // }, */
 };
 </script>

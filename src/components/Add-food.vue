@@ -31,6 +31,7 @@ export default {
     },
     addToEatenList(pickeditem) {
       this.foodEaten = pickeditem;
+      this.$emit('toEatenList', this.foodEaten);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div> {{ foodEaten.food_name }} </div>
+      <div>{{ foodEaten.food_name }}</div>
       <input
         type="text"
         placeholder="Grams"
@@ -9,19 +9,23 @@
       <input
         type="button"
         value="Add"
-        @click="filterResults()"
+        @click="addToEaten()"
       />
       <div> {{ foodEatenList }} </div>
     </div>
 </template>
 
 <script>
+import { EventBus } from './event-bus.js';
+import { translateIds } from '@/functions.js';
+
 export default {
   name:'addAmount',
   props: ['searchList', 'foodEaten'],
   data() {
     return {
       predictor: '',
+      foodEatenNameList: [],
       foodEatenList: [],
       filteredNutri: [],
       resultsWantedIds: [
@@ -30,38 +34,30 @@ export default {
     };
   },
   methods: {
-    //calcAmount(value, weight) {
-    //  return (value * this.predictor) / weight;
-    //},
-    filterResults() {
+    calcPerPredictor(value, weight) {
+      return (value * this.predictor) / weight;
+    },
+    addToEaten() {
       const arr = [];
       const obj = {};
+      obj.weight = this.foodEaten.serving_weight_grams;
       const fullNutri = this.foodEaten.full_nutrients;
   
       for(let i = 0; i< fullNutri.length; i+=1){
         for(let j = 0; j< this.resultsWantedIds.length; j+=1){
           if(fullNutri[i].attr_id === this.resultsWantedIds[j]){
-            //create object from filtered ids and values
-            obj[fullNutri[i].attr_id] = fullNutri[i].value;
-            obj.weight = 100; // test value
+            //create object from filtered ids and values, calculated by predictor
+            obj[translateIds(fullNutri[i].attr_id)] = this.calcPerPredictor(fullNutri[i].value,  obj.weight);
           }
         }
       }
       this.foodEatenList.push(obj);
-    },
-    addToCalculation() {
-      //this.filterResults();
+      this.foodEatenNameList.push(this.foodEaten.food_name);
+      const eatenList = this.foodEatenNameList;
+      const eatenDetailedList = this.foodEatenList;
 
-      //this.foodEatenList.push(this.foodEaten);
-      //obj[translateIds(this.filteredIds[i].attr_id)] = this.calcPerPredictor(this.filteredIds[i].value, obj.weight);
-      
-      //const obj = {};
-      //obj.weight = this.allDetails[0].serving_weight_grams;
-      // Assign keys and proper values, based on predictor
-      //for (let i = 0; i < this.filteredIds.length; i += 1) {
-      //  obj[translateIds(this.filteredIds[i].attr_id)] = this.calcPerPredictor(this.filteredIds[i].value, obj.weight);
-      //}
-      //this.toCalc.push(obj);
+      EventBus.$emit('toEatenList', eatenList);
+      EventBus.$emit('toCalc', eatenDetailedList);
     },
   },
 };
