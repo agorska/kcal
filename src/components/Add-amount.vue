@@ -11,16 +11,15 @@
         value="Add"
         @click="addToEaten()"
       />
-      <div> {{ foodEatenList }} </div>
     </div>
 </template>
 
 <script>
-import { EventBus } from './event-bus.js';
-import { translateIds } from '@/functions.js';
+import { EventBus } from './event-bus';
+import { translateIds } from '@/functions';
 
 export default {
-  name:'addAmount',
+  name: 'addAmount',
   props: ['searchList', 'foodEaten'],
   data() {
     return {
@@ -29,7 +28,23 @@ export default {
       foodEatenList: [],
       filteredNutri: [],
       resultsWantedIds: [
-        203, 204, 269, 255, 301, 303, 304, 306, 307, 309, 318, 328, 401, 415, 418, 430, 573
+        203,
+        204,
+        269,
+        255,
+        301,
+        303,
+        304,
+        306,
+        307,
+        309,
+        318,
+        328,
+        401,
+        415,
+        418,
+        430,
+        573,
       ],
     };
   },
@@ -38,16 +53,14 @@ export default {
       return (value * this.predictor) / weight;
     },
     addToEaten() {
-      const arr = [];
       const obj = {};
       obj.weight = this.foodEaten.serving_weight_grams;
       const fullNutri = this.foodEaten.full_nutrients;
-  
-      for(let i = 0; i< fullNutri.length; i+=1){
-        for(let j = 0; j< this.resultsWantedIds.length; j+=1){
-          if(fullNutri[i].attr_id === this.resultsWantedIds[j]){
-            //create object from filtered ids and values, calculated by predictor
-            obj[translateIds(fullNutri[i].attr_id)] = this.calcPerPredictor(fullNutri[i].value,  obj.weight);
+      for (let i = 0; i < fullNutri.length; i += 1) {
+        for (let j = 0; j < this.resultsWantedIds.length; j += 1) {
+          if (fullNutri[i].attr_id === this.resultsWantedIds[j]) {
+            // create object from filtered ids and values, calculated by predictor
+            obj[translateIds(fullNutri[i].attr_id)] = this.calcPerPredictor(fullNutri[i].value, obj.weight);
           }
         }
       }

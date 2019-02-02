@@ -1,20 +1,20 @@
 <template>
   <div>
     <mainData :eatenDetailedList="eatenDetailedList"></mainData>
-    <detailsData></detailsData>
+    <detailsData :eatenDetailedList="eatenDetailedList"></detailsData>
   </div>
 </template>
 
 <script>
 import mainData from '@/components/Main-data.vue';
 import detailsData from '@/components/Details-data.vue';
-import { EventBus } from './event-bus.js';
+import { EventBus } from './event-bus';
 
 export default {
   name: 'charts',
   data() {
     return {
-      eatenDetailedList: {},
+      eatenDetailedList: '',
       whoNorms: {
         Protein: 60,
         Fat: 80,
@@ -41,22 +41,12 @@ export default {
     detailsData,
   },
   mounted() {
-    EventBus.$on('toCalc', eatenDetailedList => {
+    EventBus.$on('toCalc', (eatenDetailedList) => {
       this.eatenDetailedList = eatenDetailedList;
-      this.translateIds();
     });
-  },
-  methods: {
-    sumObjectsByKey(objs) {
-      return objs.reduce((a, b) => {
-        for (const k in b) {
-          if (b.hasOwnProperty(k)) {
-            a[k] = (a[k] || 0) + b[k];
-          }
-        }
-        return a;
-      }, {});
-    },
+    EventBus.$on('updateCharts', (n) => {
+      this.eatenDetailedList.splice(n, 1);
+    });
   },
 };
 </script>

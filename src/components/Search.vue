@@ -7,7 +7,7 @@
         class="home-search__input"
         v-model='search'
         @input="handleInput()"
-        v-on:keyup.delete="clearList()"
+        @keyup="detectDeleting()"
         placeholder="Write a product name"
       />
     </div>
@@ -41,9 +41,13 @@ export default {
       }).catch((error) => {
         console.log(error);
       });
-    }, 
+    },
     500),
+    detectDeleting() {
+      if (this.search === '') {
+        this.$emit('clearList');
+      }
+    },
   },
 };
 </script>
-

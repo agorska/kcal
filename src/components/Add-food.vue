@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search v-on:getList="display($event)"></search>
+    <search v-on:getList="display($event)" v-on:clearList="clearList()"></search>
     <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
     <addAmount :searchList="searchList" :foodEaten="foodEaten"></addAmount>
   </div>
@@ -32,6 +32,9 @@ export default {
     addToEatenList(pickeditem) {
       this.foodEaten = pickeditem;
       this.$emit('toEatenList', this.foodEaten);
+    },
+    clearList() {
+      this.searchList = '';
     },
   },
 };

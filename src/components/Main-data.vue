@@ -1,6 +1,5 @@
 <template>
     <div>
-      <div>{{eatenDetailedList}}</div>
     </div>
 </template>
 
