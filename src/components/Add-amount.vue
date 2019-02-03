@@ -1,11 +1,14 @@
 <template>
     <div class="add-amount">
-      <div>{{ foodEaten.food_name }}</div>
+      <div> Picked: {{ foodEaten.food_name }}</div>
+      <label for="searchFood">Amount in grams
       <input
+        id="addGrams"
         type="text"
         placeholder="Grams"
         v-model="predictor"
       />
+      </label>
       <input
         type="button"
         value="Add"
@@ -53,6 +56,13 @@ export default {
       return (value * this.predictor) / weight;
     },
     addToEaten() {
+      // validate field
+      if(this.predictor == "" || isNaN(parseFloat(this.predictor))){
+        console.log('wtf');
+      } else  {
+      // replace comma with dot
+      this.predictor = this.predictor.replace(/,/g, '.');
+
       const obj = {};
       obj.weight = this.foodEaten.serving_weight_grams;
       const fullNutri = this.foodEaten.full_nutrients;
@@ -66,11 +76,12 @@ export default {
       }
       this.foodEatenList.push(obj);
       this.foodEatenNameList.push(this.foodEaten.food_name);
+      
       const eatenList = this.foodEatenNameList;
       const eatenDetailedList = this.foodEatenList;
-
       EventBus.$emit('toEatenList', eatenList);
       EventBus.$emit('toCalc', eatenDetailedList);
+      }
     },
   },
 };

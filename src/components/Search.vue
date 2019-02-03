@@ -1,5 +1,7 @@
 <template>
-    <div class="search-food">
+  <div class="search-food">
+    <h1>Calc daily nutritions</h1>
+    <label for="searchFood">Search for food
       <input
         type="text"
         id="searchFood"
@@ -10,7 +12,8 @@
         @keyup="detectDeleting()"
         placeholder="Write a product name"
       />
-    </div>
+    </label>
+  </div>
 </template>
 
 <script>

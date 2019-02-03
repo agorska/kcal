@@ -1,8 +1,8 @@
 <template>
-  <div class="results-list">
-    <div v-for="item in searchList" :key="item.id">
-      <a href="#" v-on:click="pickedFoodDetails(item.food_name)"> {{ item.food_name }} </a>
-    </div>
+  <div class="results-list" id="results-list">
+    <ul v-for="item in searchList" :key="item.id">
+      <li v-on:click="pickedFoodDetails(item.food_name); scrollToAmount()"> {{ item.food_name }} </li>
+    </ul>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
       }).catch((error) => {
         console.log(error);
       });
+    },
+    scrollToAmount() {
+      document.getElementById("addGrams").scrollIntoView();
     },
   },
 };
