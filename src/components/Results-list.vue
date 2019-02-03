@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="results-list">
     <div v-for="item in searchList" :key="item.id">
       <a href="#" v-on:click="pickedFoodDetails(item.food_name)"> {{ item.food_name }} </a>
     </div>
@@ -10,7 +10,7 @@
 import axios from 'axios';
 
 export default {
-  name:'resultsList',
+  name: 'resultsList',
   props: ['searchList'],
   data() {
     return {

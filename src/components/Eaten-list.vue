@@ -1,5 +1,7 @@
 <template>
+  <section class="eaten-list">
     <addedFood></addedFood>
+  </section>
 </template>
 
 <script>

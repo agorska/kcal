@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <section class="add-food">
     <search v-on:getList="display($event)" v-on:clearList="clearList()"></search>
     <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
     <addAmount :searchList="searchList" :foodEaten="foodEaten"></addAmount>
-  </div>
+  </section>
 </template>
 
 <script>

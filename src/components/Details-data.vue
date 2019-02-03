@@ -1,10 +1,9 @@
 <template>
-    <div>
-      <div v-for="(value, key, index) in sumObjectsByKey(eatenDetailedList)" :key="value.id">
-        <div v-if="index >= 1">{{ key }} {{ value }}</div>
-      </div>
-      <div>{{eatenDetailedList}}</div>
+  <div class="details-data">
+    <div v-for="(value, key, index) in sumObjectsByKey(eatenDetailedList)" :key="value.id">
+      <div v-if="index >= 1">{{ key }} {{ value }}</div>
     </div>
+  </div>
 </template>
 
 <script>

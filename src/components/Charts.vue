@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <section class="charts">
     <mainData :eatenDetailedList="eatenDetailedList"></mainData>
     <detailsData :eatenDetailedList="eatenDetailedList"></detailsData>
-  </div>
+  </section>
 </template>
 
 <script>

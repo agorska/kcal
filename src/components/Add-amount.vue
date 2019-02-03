@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="add-amount">
       <div>{{ foodEaten.food_name }}</div>
       <input
         type="text"

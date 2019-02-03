@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="added-food">
       <div v-for="(item, index) in eatenList" :key="item.id">
         <ul>
           <li>{{ item }}</li>

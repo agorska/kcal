@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="search-food">
       <input
         type="text"
         id="searchFood"
