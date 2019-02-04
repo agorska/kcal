@@ -1,7 +1,14 @@
 @import 'normalize.css';
 
-.container
-  margin 0 3%
+// variables
+:root {
+  --primary: #90ee02;
+  --secondary: #ff3d00;
+  --tertiary: #4a148c;
+}
+
+html
+  font-family 'Montserrat', sans-serif
 
 .search-food, .add-amount, .results-list
   display flex
@@ -10,13 +17,26 @@
   align-items center
   margin-bottom 20px
 
-.results-list ul
-  list-style-type none
-  padding 0
-  margin 0
-
 input, label
   display block
+  background none
+  border none
 
-.selectedTab
-  font-weight bold
+.default-input
+  height 60px
+  display flex
+  flex-direction column
+  justify-content space-between
+  &__input
+    border-bottom 1px solid red
+
+.results-list__item, .tab-single, .default-button
+  cursor pointer
+  border 0
+
+.primary
+  color #fff
+  background-color: var(--secondary)
+  margin 20px
+  width 80%
+  height 50px

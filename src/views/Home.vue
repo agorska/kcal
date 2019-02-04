@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
+  <div>
     <tabs>
       <tab name="add food" :selected="true">
         <addFood></addFood>
       </tab>
       <tab name="summary">
-        <eatenList></eatenList>
-        <charts></charts>
+        <div class="container">
+          <eatenList></eatenList>
+          <charts></charts>
+        </div>
       </tab>
     </tabs>
   </div>

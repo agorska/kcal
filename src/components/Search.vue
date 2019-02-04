@@ -1,12 +1,12 @@
 <template>
   <div class="search-food">
     <h1>Calc daily nutritions</h1>
-    <label for="searchFood">Search for food
+    <label for="searchFood" class="default-input">Search for food
       <input
         type="text"
         id="searchFood"
         name="searchFood"
-        class="home-search__input"
+        class="default-input__input"
         v-model='search'
         @input="handleInput()"
         @keyup="detectDeleting()"

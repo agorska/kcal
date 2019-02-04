@@ -1,10 +1,22 @@
 <template>
   <div class="results-list" id="results-list">
     <ul v-for="item in searchList" :key="item.id">
-      <li v-on:click="pickedFoodDetails(item.food_name); scrollToAmount()"> {{ item.food_name }} </li>
+      <li v-on:click="pickedFoodDetails(item.food_name); scrollToAmount()" class="results-list__item"> {{ item.food_name }} </li>
     </ul>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+.results-list 
+  ul
+    list-style-type none
+    padding 0
+    margin 0
+  &__item
+    margin-bottom 5px
+</style>
+
+
 
 <script>
 import axios from 'axios';

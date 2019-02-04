@@ -3,7 +3,7 @@
       <div v-for="(item, index) in eatenList" :key="item.id">
         <ul>
           <li>{{ item }}</li>
-          <input type="button" value="-" @click="removeItem(index)"/>
+          <input type="button" value="-" class="default-button" @click="removeItem(index)"/>
         </ul>
       </div>
     </div>
