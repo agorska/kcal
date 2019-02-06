@@ -1,24 +1,25 @@
 <template>
-    <div class="add-amount">
-      <h4 class="add-amount__item">Picked: {{ foodEaten.food_name }}</h4>
-      <div class="add-amount__item--wrap">
-      <label for="searchFood" class="default-input">Amount in grams
-      <input
-        id="addGrams"
-        type="text"
-        class="default-input__input"
-        placeholder="Grams"
-        v-model="predictor"
-      />
+  <div class="add-amount">
+    <h4 class="add-amount__item">Picked: {{ foodEaten.food_name }}</h4>
+    <div class="add-amount__item--wrap">
+      <label for="searchFood" class="default-input">Amount
+        <input
+          id="addGrams"
+          type="text"
+          class="default-input__input center"
+          placeholder="Grams"
+          v-model="predictor"
+        />
       </label>
-      <input
-        type="button"
-        value="Add"
-        class="default-button primary"
-        @click="addToEaten()"
-      />
-      </div>
     </div>
+    <button
+        class="default-button primary"
+        @click="addToEaten(); toTop()"
+      >
+        <i class="material-icons">add</i>
+        add
+      </button>
+  </div>
 </template>
 
 <style lang="stylus" scoped>
@@ -27,6 +28,7 @@
     margin 20px
     &--wrap
       display flex
+      align-items flex-end
 </style>
 
 
@@ -67,6 +69,10 @@ export default {
   methods: {
     calcPerPredictor(value, weight) {
       return (value * this.predictor) / weight;
+    },
+    toTop() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     },
     addToEaten() {
       // validate field

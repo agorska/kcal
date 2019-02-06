@@ -1,20 +1,29 @@
 <template>
   <div class="search-food">
     <h1>Calc daily nutritions</h1>
-    <label for="searchFood" class="default-input">Search for food
-      <input
-        type="text"
-        id="searchFood"
-        name="searchFood"
-        class="default-input__input"
-        v-model='search'
-        @input="handleInput()"
-        @keyup="detectDeleting()"
-        placeholder="Write a product name"
-      />
+    <label for="searchFood" class="default-input">Search
+      <div class="input-wrap">
+        <i class="material-icons">search</i>
+        <input
+          type="text"
+          id="searchFood"
+          name="searchFood"
+          class="default-input__input search"
+          v-model='search'
+          @input="handleInput()"
+          @keyup="detectDeleting()"
+          placeholder="Write a product name"
+        />
+      </div>
     </label>
   </div>
 </template>
+
+<style lang="stylus">
+.input-wrap
+  display flex
+</style>
+
 
 <script>
 import { debounce } from 'lodash';

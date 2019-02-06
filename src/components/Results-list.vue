@@ -3,6 +3,7 @@
     <ul v-for="item in searchList" :key="item.id">
       <li v-on:click="pickedFoodDetails(item.food_name); scrollToAmount()" class="results-list__item"> {{ item.food_name }} </li>
     </ul>
+    <div class="pie"></div>
   </div>
 </template>
 
@@ -14,9 +15,10 @@
     margin 0
   &__item
     margin-bottom 5px
+    &:hover
+      color var(--secondary)
+
 </style>
-
-
 
 <script>
 import axios from 'axios';

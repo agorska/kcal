@@ -1,13 +1,28 @@
 <template>
     <div class="added-food">
+      <h2>Eaten list</h2>
       <div v-for="(item, index) in eatenList" :key="item.id">
-        <ul>
-          <li>{{ item }}</li>
-          <input type="button" value="-" class="default-button" @click="removeItem(index)"/>
+        <ul class="added-food__list">
+          <li class="added-food__list--wrap">{{ item }}
+            <input type="button" value="-" class="default-button round" @click="removeItem(index)"/>
+          </li>
         </ul>
       </div>
     </div>
 </template>
+
+<style lang="stylus">
+.added-food
+  display flex
+  flex-direction column
+  align-items center
+  &__list
+    padding 0
+    &--wrap
+      display flex
+      align-items center
+</style>
+
 
 <script>
 import { EventBus } from './event-bus';

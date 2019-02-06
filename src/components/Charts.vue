@@ -1,12 +1,23 @@
 <template>
   <section class="charts">
-    <mainData :eatenDetailedList="eatenDetailedList"></mainData>
-    <detailsData :eatenDetailedList="eatenDetailedList"></detailsData>
+    <h2>Nutritions</h2>
+    <div class="details-data">
+      <div v-for="(value, key, index) in sumObjectsByKey(eatenDetailedList)" :key="value.id">
+        <div v-if="index >= 1">{{ key }} {{ value }}</div>
+      </div>
+    </div>
   </section>
 </template>
 
+<style lang="stylus">
+.charts
+  &-title
+    text-align center
+
+</style>
+
+
 <script>
-import mainData from '@/components/Main-data.vue';
 import detailsData from '@/components/Details-data.vue';
 import { EventBus } from './event-bus';
 
@@ -37,16 +48,24 @@ export default {
     };
   },
   components: {
-    mainData,
     detailsData,
   },
   mounted() {
     EventBus.$on('toCalc', (eatenDetailedList) => {
       this.eatenDetailedList = eatenDetailedList;
     });
-    EventBus.$on('updateCharts', (n) => {
-      this.eatenDetailedList.splice(n, 1);
-    });
+  },
+  methods: {
+    sumObjectsByKey(objs) {
+      return objs.reduce((a, b) => {
+        for (const k in b) {
+          if (b.hasOwnProperty(k)) {
+            a[k] = (a[k] || 0) + b[k];
+          }
+        }
+        return a;
+      }, {});
+    },
   },
 };
 </script>
