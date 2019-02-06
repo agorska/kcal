@@ -6,6 +6,13 @@
         <div v-if="index >= 1">{{ key }} {{ value }}</div>
       </div>
     </div>
+    <bar-chart :data="[
+        ['Protein', (this.whoNorms.Protein)],
+        ['Fat', (this.whoNorms.Fat)],
+        ['Carbs', (this.whoNorms.Carbs)]
+      ]"
+      ></bar-chart>
+    <pie-chart :donut="true" :data="[['Fat', normForPieChart((this.whoNorms.Fat), 10)], ['Strawberry', 23]]"></pie-chart>
   </section>
 </template>
 
@@ -13,12 +20,10 @@
 .charts
   &-title
     text-align center
-
 </style>
 
 
 <script>
-import detailsData from '@/components/Details-data.vue';
 import { EventBus } from './event-bus';
 
 export default {
@@ -26,6 +31,8 @@ export default {
   data() {
     return {
       eatenDetailedList: '',
+      chartData: '',
+      num: 3,
       whoNorms: {
         Protein: 60,
         Fat: 80,
@@ -47,9 +54,6 @@ export default {
       },
     };
   },
-  components: {
-    detailsData,
-  },
   mounted() {
     EventBus.$on('toCalc', (eatenDetailedList) => {
       this.eatenDetailedList = eatenDetailedList;
@@ -63,8 +67,12 @@ export default {
             a[k] = (a[k] || 0) + b[k];
           }
         }
+        this.chartData = a;
         return a;
       }, {});
+    },
+    normForPieChart(a, b) {
+      return a - b;
     },
   },
 };
