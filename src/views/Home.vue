@@ -1,5 +1,4 @@
 <template>
-  <div>
     <tabs>
       <tab name="add food" :selected="true">
         <addFood></addFood>
@@ -11,11 +10,9 @@
         </div>
       </tab>
     </tabs>
-  </div>
 </template>
 
 <script>
-
 import addFood from '@/components/Add-food.vue';
 import eatenList from '@/components/Eaten-list.vue';
 import charts from '@/components/Charts.vue';

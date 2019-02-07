@@ -1,5 +1,5 @@
 <template>
-  <div class="search-food">
+  <section class="search-food">
     <h1>Calc daily nutritions</h1>
     <label for="searchFood" class="default-input">Search
       <div class="input-wrap">
@@ -16,7 +16,7 @@
         />
       </div>
     </label>
-  </div>
+  </section>
 </template>
 
 <style lang="stylus">

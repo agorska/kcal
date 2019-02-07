@@ -7,7 +7,8 @@
 </template>
 
 <style lang="stylus" scoped>
-.results-list 
+.results-list
+  margin-top var(--space-small)
   ul
     list-style-type none
     padding 0

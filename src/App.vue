@@ -4,6 +4,11 @@
   </div>
 </template>
 
+<style lang="stylus">
+#app
+  background-color #212121
+</style>
+
 
 <style lang="stylus">
 @import 'App.styl'

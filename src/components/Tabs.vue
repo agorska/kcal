@@ -37,7 +37,8 @@
 
 .selectedTab
   font-weight bold
-  background-color #fff
+  color #fff
+  background-color #212121
 </style>
 
 <script>
