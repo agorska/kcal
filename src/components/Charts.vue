@@ -1,20 +1,32 @@
 <template>
   <section class="charts">
-    <h2>Nutritions</h2>
-    <div class="details-data">{{ chartData }}</div>
+    <h2 class="charts-title">Nutritions</h2>
 
-    <bar-chart 
-      height="200px"
-      :colors="['#666']"
-      :data="[
-        ['Norm Protein', (this.whoNorms.Protein),],
-        ['Protein', (this.chartData.Protein)],
-        ['Norm Fat', (this.whoNorms.Fat)],
-        ['Fat', (this.chartData.Fat)],
-        ['Norm Carbs', (this.whoNorms.Carbs)],
-        ['Carbs', (this.chartData.Carbs)],
-      ]"
-      ></bar-chart>
+      <section class="charts-main">
+      <bar-chart
+        height="200px"
+        :colors="['#D8D8D8']"
+        :data="[
+          ['Norm Protein', (whoNorms.Protein)],
+          ['Protein', (chartData.Protein)],
+          ['Norm Fat', (whoNorms.Fat)],
+          ['Fat', (chartData.Fat)],
+          ['Norm Carbs', (whoNorms.Carbs)],
+          ['Carbs', (chartData.Carbs)],
+        ]"
+        ></bar-chart>
+      </section>
+
+      <section class="charts-details">
+        <div class="charts-details__item" v-for="(value, key) in whoNorms" :key="value.id">
+        <pie-chart v-if="getChartValue(key)"
+          donut="true"
+          :legend="false"
+          :colors="['#ff3d00', '#d8d8d8']"
+          :data="[[(key), getChartValue(key)], ['Left', (value - getChartValue(key))]]">
+        </pie-chart>
+        </div>
+      </section>
   </section>
 </template>
 
@@ -22,6 +34,9 @@
 .charts
   &-title
     text-align center
+  &-details
+    display flex
+    flex-wrap wrap
 </style>
 
 <script>
@@ -69,15 +84,23 @@ export default {
     sumObjectsByKey() {
       const myData = this.eatenDetailedList;
       const keys = (Object.keys(this.whoNorms));
-      
       const result = myData.reduce((r, e, i, a) => {
         keys.forEach(k => r[k] = (r[k] || 0) + parseInt(e[k]));
-          if(!a[i + 1]) Object.keys(e)
-            .filter(k => typeof e[k] == 'string')
-            .forEach(k => r[k] /= myData.length)
-            return r;
-        }, {})
+        if (!a[i + 1]) Object.keys(e)
+          .filter(k => typeof e[k] === 'string')
+          .forEach(k => r[k] /= myData.length);
+        return r;
+      }, {});
       this.chartData = result;
+    },
+    getChartValue(getKey) {
+      if (
+        isNaN(this.chartData[getKey])
+        || this.chartData[getKey] === undefined
+        || this.chartData[getKey] === '') {
+        return 0;
+      }
+      return this.chartData[getKey];
     },
   },
 };
