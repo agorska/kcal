@@ -1,14 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <router-view></router-view>
   </div>
 </template>
 
 <style lang="stylus">
-#app
+.app
   background-color #212121
 </style>
-
 
 <style lang="stylus">
 @import 'App.styl'

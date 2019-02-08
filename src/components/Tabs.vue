@@ -10,6 +10,7 @@
               @click="selectTab(item)"
             > {{ item.name }}
             </li>
+            <li>kcal</li>
         </ul>
     </div>
     <slot></slot>
@@ -28,6 +29,7 @@
     margin 0
   &-single
     background-color #d8d8d8
+    color #000
     margin 0 10px
     height 25px
     padding 5px 10px

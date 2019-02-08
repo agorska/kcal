@@ -9,6 +9,8 @@
 <style lang="stylus">
 .add-food
   width 80%
+  height auto
+  color #000
   background-color white
   border-radius 10px 10px 0 0
   margin var(--space-small) auto 0 auto

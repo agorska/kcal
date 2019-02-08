@@ -1,11 +1,10 @@
 <template>
   <section class="charts">
     <h2 class="charts-title">Nutritions</h2>
-
       <section class="charts-main">
       <bar-chart
         height="200px"
-        :colors="['#D8D8D8']"
+        :colors="['#d8d8d8']"
         :data="[
           ['Norm Protein', (whoNorms.Protein)],
           ['Protein', (chartData.Protein)],
@@ -19,7 +18,8 @@
 
       <section class="charts-details">
         <div class="charts-details__item" v-for="(value, key) in whoNorms" :key="value.id">
-        <pie-chart v-if="getChartValue(key)"
+        <pie-chart
+          responsive= "true"
           donut="true"
           :legend="false"
           :colors="['#ff3d00', '#d8d8d8']"
@@ -35,8 +35,11 @@
   &-title
     text-align center
   &-details
-    display flex
-    flex-wrap wrap
+    height 100%
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+    grid-template-rows: 1fr
+    grid-template-areas: ". . ."
 </style>
 
 <script>
