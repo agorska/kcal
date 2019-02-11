@@ -10,20 +10,35 @@
           name="searchFood"
           class="default-input__input search"
           v-model='search'
-          @input="handleInput()"
+          @input="wrapHandleInput()"
           @keyup="detectDeleting()"
+          @keyup.delete="isLoading = false"
           placeholder="Write a product name"
         />
       </div>
     </label>
+    <div v-if="isLoading" class="spinner"></div>
   </section>
 </template>
 
 <style lang="stylus">
 .input-wrap
   display flex
-</style>
 
+.spinner
+  width 50px
+  height 50px
+  margin-top 40px
+  border 4px #d8d8d8 solid
+  border-top 4px var(--primary) solid
+  border-radius 50%
+  animation animateSpinner .6s infinite linear
+
+@keyframes animateSpinner {
+	from { transform: rotate(0deg); }
+	to { transform: rotate(359deg); }
+}
+</style>
 
 <script>
 import { debounce } from 'lodash';
@@ -35,9 +50,14 @@ export default {
   data() {
     return {
       search: '',
+      isLoading: false,
     };
   },
   methods: {
+    wrapHandleInput() {
+      this.isLoading = true;
+      this.handleInput();
+    },
     handleInput: debounce(function () {
       axios({
         method: 'get',
@@ -50,6 +70,7 @@ export default {
       }).then((response) => {
         const results = (response.data.common);
         this.$emit('getList', results);
+        this.isLoading = false;
       }).catch((error) => {
         console.log(error);
       });

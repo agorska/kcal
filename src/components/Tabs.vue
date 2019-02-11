@@ -10,7 +10,7 @@
               @click="selectTab(item)"
             > {{ item.name }}
             </li>
-            <li>kcal</li>
+            <li class="app-icon"><i class="material-icons">fastfood</i></li>
         </ul>
     </div>
     <slot></slot>
@@ -35,7 +35,14 @@
     padding 5px 10px
     border-radius 5px 5px 0 0
     &:first-child
-      margin 0 5px 0 3%
+      margin 0 5px 0 var(--edge-space)
+
+.app-icon
+  position absolute
+  right var(--edge-space)
+  color #000
+  .material-icons
+    font-size 2em
 
 .selectedTab
   font-weight bold

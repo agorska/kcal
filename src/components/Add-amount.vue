@@ -1,6 +1,6 @@
 <template>
   <div class="add-amount">
-    <h4 class="add-amount__item">Picked: {{ foodEaten.food_name }}</h4>
+    <h4 class="add-amount__item" v-if="foodEaten.food_name">Picked: {{ foodEaten.food_name }}</h4>
     <div class="add-amount__item--wrap">
       <label for="searchFood" class="default-input">Amount
         <input
@@ -30,7 +30,6 @@
       display flex
       align-items flex-end
 </style>
-
 
 <script>
 import { EventBus } from './event-bus';

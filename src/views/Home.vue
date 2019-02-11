@@ -16,7 +16,7 @@
 .home-page
   height 100vh
   &__tab
-    background-color #212121
+    background-color: #212121
 </style>
 
 

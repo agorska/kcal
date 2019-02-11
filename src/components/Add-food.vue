@@ -9,6 +9,7 @@
 <style lang="stylus">
 .add-food
   width 80%
+  padding 10px
   height auto
   color #000
   background-color white
