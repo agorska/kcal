@@ -1,6 +1,7 @@
 <template>
-  <section class="charts">
+  <div>
     <h2 class="charts-title">Nutritions</h2>
+    <section class="charts">
       <section class="charts-main">
       <bar-chart
         height="200px"
@@ -18,8 +19,10 @@
 
       <section class="charts-details">
         <div class="charts-details__item" v-for="(value, key) in whoNorms" :key="value.id">
+        <div class="charts-details__key">{{ key }}</div>
         <pie-chart
-          responsive= "true"
+          width="150px"
+          height="150px"
           donut="true"
           :legend="false"
           :colors="['#ff3d00', '#d8d8d8']"
@@ -27,19 +30,34 @@
         </pie-chart>
         </div>
       </section>
-  </section>
+    </section>
+  </div>
 </template>
 
 <style lang="stylus">
+.charts-title, .charts-details__key
+  text-align center
+  margin var(--space-small)
+
 .charts
-  &-title
-    text-align center
+  @media screen and (min-width: 1200px)
+    display flex
+  &-main
+    @media screen and (min-width: 1200px)
+      width 50%
   &-details
-    height 100%
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr
+    display grid
+    justify-items: center
+    grid-template-columns 1fr 1fr
     grid-template-rows: 1fr
-    grid-template-areas: ". . ."
+    grid-template-areas: ". ."
+    @media screen and (min-width: 600px)
+      grid-template-columns 1fr 1fr 1fr
+      grid-template-areas: ". . ."
+      @media screen and (min-width: 1000px)
+        grid-template-columns 1fr 1fr 1fr 1fr
+        grid-template-areas: ". . . ."
+        justify-items inherit
 </style>
 
 <script>
