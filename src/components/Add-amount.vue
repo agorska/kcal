@@ -9,9 +9,12 @@
           class="default-input__input center"
           placeholder="Grams"
           v-model="predictor"
+          required
+          :class="{ inputEmpty: isEmpty }"
         />
       </label>
     </div>
+    <div v-if="isEmpty">Fill this field correctly!</div>
     <button
         class="default-button primary"
         @click="addToEaten(); toTop()"
@@ -29,6 +32,8 @@
     &--wrap
       display flex
       align-items flex-end
+.inputEmpty
+   border-bottom 3px solid #000
 </style>
 
 <script>
@@ -40,6 +45,7 @@ export default {
   props: ['searchList', 'foodEaten'],
   data() {
     return {
+      isEmpty: false,
       predictor: '',
       foodEatenNameList: [],
       foodEatenList: [],
@@ -76,8 +82,10 @@ export default {
     addToEaten() {
       // validate field
       if (this.predictor === '' || isNaN(parseFloat(this.predictor))) {
-        console.log('wtf');
+        this.isEmpty = true;
+        throw 'Fill the input field correctly';
       } else {
+        this.isEmpty = false;
       // replace comma with dot
         this.predictor = this.predictor.replace(/,/g, '.');
 

@@ -5,7 +5,7 @@
       <section class="charts-main">
       <bar-chart
         height="200px"
-        :colors="['#d8d8d8']"
+        :colors="['#ff3d00']"
         :data="[
           ['Norm Protein', (whoNorms.Protein)],
           ['Protein', (chartData.Protein)],
@@ -19,15 +19,15 @@
 
       <section class="charts-details">
         <div class="charts-details__item" v-for="(value, key) in whoNorms" :key="value.id">
-        <div class="charts-details__key">{{ key }}</div>
-        <pie-chart
-          width="150px"
-          height="150px"
-          donut="true"
-          :legend="false"
-          :colors="['#ff3d00', '#d8d8d8']"
-          :data="[[(key), getChartValue(key)], ['Left', (value - getChartValue(key))]]">
-        </pie-chart>
+          <div class="charts-details__key">{{ key }}</div>
+          <pie-chart
+            width="150px"
+            height="150px"
+            donut="true"
+            :legend="false"
+            :colors="['#ff3d00', '#d8d8d8']"
+            :data="[[(key), getChartValue(key)], ['Left', (value - getChartValue(key))]]">
+          </pie-chart>
         </div>
       </section>
     </section>
@@ -38,13 +38,10 @@
 .charts-title, .charts-details__key
   text-align center
   margin var(--space-small)
+.charts-details__key
+   font-weight 700
 
 .charts
-  @media screen and (min-width: 1200px)
-    display flex
-  &-main
-    @media screen and (min-width: 1200px)
-      width 50%
   &-details
     display grid
     justify-items: center
@@ -58,6 +55,8 @@
         grid-template-columns 1fr 1fr 1fr 1fr
         grid-template-areas: ". . . ."
         justify-items inherit
+    &__item
+      justify-self: center
 </style>
 
 <script>

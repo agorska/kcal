@@ -5,8 +5,10 @@
         <addFood></addFood>
       </tab>
       <tab name="summary" class="home-page__tab">
-        <eatenList></eatenList>
-        <charts></charts>
+        <div class="charts-container">
+          <eatenList></eatenList>
+          <charts></charts>
+        </div>
       </tab>
     </tabs>
   </div>
@@ -16,7 +18,19 @@
 .home-page
   height 100vh
   &__tab
-    background-color: #212121
+    box-sizing border-box
+    width calc(100% - (var(--edge-space)*2))
+    min-height 100vh
+    padding 10px
+    color #000
+    background-color #fff
+    border-radius 10px
+    margin 20px auto 20px auto
+
+.charts-container
+  @media screen and (min-width: 900px)
+    display grid
+    grid-template-columns 30vw 1fr
 </style>
 
 

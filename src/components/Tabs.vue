@@ -20,7 +20,7 @@
 <style lang="stylus">
 .tab
   &-list
-    background-color var(--primary)
+    background-color #212121
     list-style-type none
     display flex
     align-items flex-end
@@ -40,14 +40,13 @@
 .app-icon
   position absolute
   right var(--edge-space)
-  color #000
   .material-icons
     font-size 2em
 
 .selectedTab
   font-weight bold
   color #fff
-  background-color #212121
+  background-color var(--primary)
 </style>
 
 <script>
@@ -64,7 +63,7 @@ export default {
   methods: {
     selectTab(el) {
       this.tabItems.forEach(item => {
-        item.isActive = (item == el)
+        item.isActive = (item == el);
       });
     }
   },

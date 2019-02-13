@@ -12,7 +12,7 @@
             <a href="https://developer.nutritionix.com/">Nutritionix API</a> and
             <a href="https://ods.od.nih.gov/">NIH</a>
         </p>
-        <router-link to="/home"><a class="default-button primary">To calc</a></router-link>
+        <router-link to="/home"><a class="default-button primary button-main">To calc</a></router-link>
       </div>
     </div>
     <div class="main-page__image"></div>
@@ -22,13 +22,27 @@
 <style lang="stylus" scoped>
 .default-button
   margin 0 auto
+
+.button-main
+  &:after
+    content: '\279C'
+    position absolute
+    right 60px
+    font-size 1em
+    opacity 0
+    transition all 0.3s ease
+  &:hover:after
+    opacity 1
+    right 25px
+
 .app-icon__main
   font-size 2em
   position absolute
-  top -15px
+  top -30px
   z-index 200
-  @media screen and (min-width: 600px)
-    top 0
+  @media screen and (min-width: 1000px)
+    top -15px
+    
 .main-page
   height 100vh
   display flex
@@ -37,9 +51,6 @@
   &__title
     padding 0
     margin 0
-    color #fff
-    position relative
-    z-index 100
     font-size 3em
     @media screen and (min-width: 600px)
       font-size 4em
@@ -47,13 +58,14 @@
   &__text
     background-color #212121
     padding 10px
+    border-radius 10px
   &__description
     display flex
     flex-direction column
     text-align center
     position relative
     z-index 20
-    padding 20px
+    margin 20px
     @media screen and (min-width: 1000px)
       flex-direction row
       width 60vw
@@ -73,9 +85,8 @@
 
 </style>
 
-
 <script>
 export default {
   name: 'mainPage',
-}
+};
 </script>

@@ -1,7 +1,14 @@
 <template>
   <div class="results-list" id="results-list">
-    <ul v-for="item in searchList" :key="item.id">
-      <li v-on:click="pickedFoodDetails(item.food_name); scrollToAmount()" class="results-list__item"> {{ item.food_name }} </li>
+    <ul>
+      <li
+        @click="pickedFoodDetails(item.food_name);
+        scrollToAmount()"
+        class="results-list__item"
+        v-for="item in searchList" :key="item.id"
+      >
+        {{ item.food_name }}
+      </li>
     </ul>
   </div>
 </template>
