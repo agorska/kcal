@@ -1,6 +1,6 @@
 <template>
   <div class="add-amount">
-    <h4 class="add-amount__item" v-if="foodEaten.food_name">Picked: {{ foodEaten.food_name }}</h4>
+    <h4 class="add-amount__item">Picked: {{ foodEaten.food_name }}</h4>
     <div class="add-amount__item--wrap">
       <label for="searchFood" class="default-input">Amount
         <input
@@ -9,15 +9,14 @@
           class="default-input__input center"
           placeholder="Grams"
           v-model="predictor"
-          required
           :class="{ inputEmpty: isEmpty }"
         />
       </label>
     </div>
-    <div v-if="isEmpty">Fill this field correctly!</div>
+    <div v-if="isEmpty" class="error-empty-field">Fill the input with number!</div>
     <button
         class="default-button primary"
-        @click="addToEaten(); toTop()"
+        @click="addToEaten(); toTop(100)"
       >
         <i class="material-icons">add</i>
         add
@@ -75,15 +74,20 @@ export default {
     calcPerPredictor(value, weight) {
       return (value * this.predictor) / weight;
     },
-    toTop() {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    toTop(time) {
+      const scrollStep = -window.scrollY / (time / 15),
+        scrollInterval = setInterval(function(){
+        if ( window.scrollY != 0 ) {
+            window.scrollBy( 0, scrollStep );
+        }
+        else clearInterval(scrollInterval); 
+    },15);
     },
     addToEaten() {
       // validate field
       if (this.predictor === '' || isNaN(parseFloat(this.predictor))) {
         this.isEmpty = true;
-        throw 'Fill the input field correctly';
+        throw 'Fill the input with number!';
       } else {
         this.isEmpty = false;
       // replace comma with dot

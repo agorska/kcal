@@ -57,7 +57,7 @@
       margin 0 20px 0 0
   &__text
     background-color #212121
-    padding 10px
+    padding 10px 20px
     border-radius 10px
   &__description
     display flex

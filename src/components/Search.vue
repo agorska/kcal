@@ -78,7 +78,7 @@ export default {
     500),
     detectDeleting() {
       if (this.search === '') {
-        this.$emit('clearList');
+        this.$emit('emptyInput');
       }
     },
   },

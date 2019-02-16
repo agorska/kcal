@@ -26,7 +26,8 @@
             donut="true"
             :legend="false"
             :colors="['#ff3d00', '#d8d8d8']"
-            :data="[[(key), getChartValue(key)], ['Left', (value - getChartValue(key))]]">
+            :data="[[(key), getChartValue(key)], ['Left', calcLeft(key, value)]]"
+          >
           </pie-chart>
         </div>
       </section>
@@ -121,6 +122,10 @@ export default {
         return 0;
       }
       return this.chartData[getKey];
+    },
+    calcLeft(key, value){
+      let left = value - (this.getChartValue(key));
+      return left < 0 ? 0 : left;
     },
   },
 };
