@@ -1,29 +1,29 @@
 <template>
   <section class="search-food">
     <h1>Calc daily nutritions</h1>
-    <label for="searchFood" class="default-input">Search
-      <div class="input-wrap">
-        <i class="material-icons">search</i>
+    <label for="searchFood" class="default-input">
+      <div class="label-wrap"><i class="material-icons">search</i>Search</div>
         <input
           type="text"
           id="searchFood"
           name="searchFood"
-          class="default-input__input search"
+          class="default-input__input center"
           v-model='search'
           @input="wrapHandleInput()"
           @keyup="detectDeleting()"
           @keyup.delete="isLoading = false"
           placeholder="Write a product name"
         />
-      </div>
     </label>
     <div v-if="isLoading" class="spinner"></div>
   </section>
 </template>
 
 <style lang="stylus">
-.input-wrap
+.label-wrap
   display flex
+  align-items center
+  justify-content center
 
 .spinner
   width 50px

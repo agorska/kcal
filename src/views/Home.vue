@@ -2,12 +2,14 @@
   <div class="home-page">
     <tabs>
       <tab name="add food" :selected="true" class="home-page__tab">
+        <div class="hide" :class="{ test: alertActive }" ref="notification">Dodano!</div>
         <section class="add-food">
           <search v-on:getList="display($event)" v-on:emptyInput="clearList()"></search>
           <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
           <addAmount
             :searchList="searchList"
             :foodEaten="foodEaten"
+            v-on:successfullyAdded="showAlert()"
           >
           </addAmount>
         </section>
@@ -23,6 +25,28 @@
 </template>
 
 <style lang="stylus">
+.hide
+  display none
+
+.test
+  display block
+  position absolute
+  position: absolute;
+  background-color red
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  animation: mymove 5s ease;
+
+@keyframes mymove {
+    0% {
+      top: 50%;
+    }
+    100% {
+      top: 0%;
+    }
+}
+
 .home-page
   height 100vh
   &__tab
@@ -70,12 +94,12 @@ export default {
       searchList: [],
       foodEaten: '',
       foodItemDetails: [],
+      alertActive: false,
     };
   },
   methods: {
     display(updatedlist) {
       this.searchList = updatedlist;
-      console.log(this.search);
     },
     addToEatenList(pickeditem) {
       this.foodEaten = pickeditem;
@@ -83,6 +107,14 @@ export default {
     },
     clearList() {
       this.searchList = '';
+    },
+    showAlert(){
+      this.alertActive = true;
+      const notification = this.$refs.notification;
+      setTimeout(function(){ 
+        this.alertActive = false;
+        notification.classList.remove("test");
+      }, 1000);
     },
   },
 };

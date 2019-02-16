@@ -46,9 +46,11 @@ input, label
   justify-content space-between
   color var(--secondary)
   &__input
+    width 200px
     border-bottom 3px solid var(--secondary)
-    transition border-bottom 0.2s ease
+    transition all 0.2s ease
     &:focus
+      width 250px
       border-bottom 3px solid var(--primary)
 
 .results-list__item, .tab-single, .default-button
@@ -89,4 +91,5 @@ input, label
 .error-empty-field
   font-weight 700
   color red
+  margin 10px
 

@@ -13,7 +13,7 @@
         />
       </label>
     </div>
-    <div v-if="isEmpty" class="error-empty-field">Fill the input with number!</div>
+    <div v-if="isEmpty" class="error-empty-field">Fill the input with a number!</div>
     <button
         class="default-button primary"
         @click="addToEaten(); toTop(100)"
@@ -32,7 +32,10 @@
       display flex
       align-items flex-end
 .inputEmpty
-   border-bottom 3px solid #000
+  border-bottom 3px solid #000
+  &:focus
+    width 250px
+    border-bottom 3px solid var(--primary)
 </style>
 
 <script>
@@ -76,12 +79,13 @@ export default {
     },
     toTop(time) {
       const scrollStep = -window.scrollY / (time / 15),
-        scrollInterval = setInterval(function(){
+      scrollInterval = setInterval(function(){
         if ( window.scrollY != 0 ) {
             window.scrollBy( 0, scrollStep );
         }
         else clearInterval(scrollInterval); 
-    },15);
+      },15);
+      this.showNotification();
     },
     addToEaten() {
       // validate field
@@ -110,10 +114,13 @@ export default {
         this.foodEatenNameList.push(this.foodEaten.food_name + ' ' + this.predictor.toString() + 'g');
         const eatenList = this.foodEatenNameList;
         const eatenDetailedList = this.foodEatenList;
-
+        
         EventBus.$emit('toEatenList', eatenList);
         EventBus.$emit('toCalc', eatenDetailedList);
       }
+    },
+    showNotification(){
+      this.$emit('successfullyAdded');
     },
   },
 };
