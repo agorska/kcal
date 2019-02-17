@@ -11,7 +11,7 @@
           :class="{ inputEmpty: isSearchEmpty }"
           v-model='search'
           @input="wrapHandleInput()"
-          @keyup="detectDeleting()"
+          @keyup="detectInputChange()"
           @keyup.delete="isLoading = false"
           placeholder="Write a product name"
         />
@@ -22,6 +22,17 @@
 </template>
 
 <style lang="stylus">
+.search-food__info
+  &-icon
+    position absolute
+    left calc(var(--edge-space) + 10px)
+    font-size 25px
+    cursor pointer
+    color var(--secondary)
+    transition color 0.2s ease
+    font-size 30px
+    &:hover
+      color var(--tertiary)
 .label-wrap
   display flex
   align-items center
@@ -37,15 +48,16 @@
   animation animateSpinner .6s infinite linear
 
 @keyframes animateSpinner {
-	from { transform: rotate(0deg); }
+  from { transform: rotate(0deg); }
 	to { transform: rotate(359deg); }
 }
 </style>
 
 <script>
+import axios from 'axios';
+
 import { EventBus } from './event-bus';
 import { debounce } from 'lodash';
-import axios from 'axios';
 
 export default {
   name: 'search',
@@ -85,10 +97,11 @@ export default {
       });
     },
     500),
-    detectDeleting() {
+    detectInputChange() {
       if (this.search === '') {
         this.$emit('emptyInput');
       }
+      this.isSearchEmpty = false;
     },
   },
 };

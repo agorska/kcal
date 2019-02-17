@@ -14,7 +14,11 @@
             v-on:emptyInput="clearList()"
           >
           </search>
-          <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
+          <resultsList
+            :searchList="searchList"
+            v-on:pickitem="addToEatenList($event)"
+          >
+          </resultsList>
           <addAmount
             :searchList="searchList"
             :foodEaten="foodEaten"
@@ -80,7 +84,6 @@
 }
 </style>
 
-
 <script>
 import search from '@/components/Search.vue';
 import resultsList from '@/components/Results-list.vue';
@@ -122,9 +125,9 @@ export default {
     clearList() {
       this.searchList = '';
     },
-    showInfo(){
+    showInfo() {
       this.show = true;
-      setTimeout(() => { this.show = false }, 2000);
+      setTimeout(() => { this.show = false; }, 2000);
     },
   },
 };

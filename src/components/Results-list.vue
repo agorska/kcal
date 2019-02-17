@@ -1,11 +1,12 @@
 <template>
-  <div class="results-list" id="results-list">
+  <div class="results-list">
     <ul>
       <li
         @click="pickedFoodDetails(item.food_name);
         scrollToAmount()"
         class="results-list__item"
-        v-for="item in searchList" :key="item.id"
+        v-for="(item, index) in searchList" :key="item.id"
+        v-if="index < 11"
       >
         {{ item.food_name }}
       </li>
@@ -24,6 +25,7 @@
     margin-bottom 5px
     &:hover
       color var(--secondary)
+
 
 </style>
 
@@ -60,7 +62,7 @@ export default {
       });
     },
     scrollToAmount() {
-      document.getElementById("addGrams").scrollIntoView();
+      document.getElementById('addGrams').scrollIntoView();
     },
   },
 };

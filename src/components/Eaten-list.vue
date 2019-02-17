@@ -1,6 +1,13 @@
 <template>
   <section class="eaten-list">
-    <h2>Eaten list</h2>
+    <div class="eaten-list__list-header">
+      <h2>Eaten list</h2>
+      <input type="button"
+        value="Clear list"
+        class="default-button primary-small"
+        @click="removeAll()"
+      />
+      </div>
       <ul class="eaten-list__wrap">
         <li class="eaten-list__item" v-for="(item, index) in eatenList" :key="item.id">
           <input type="button" value="-" class="default-button round" @click="removeItem(index)"/>
@@ -28,7 +35,8 @@
     margin 10px 0
   &__wrap
     padding 0
-      
+  &__list-header
+    display flex
 </style>
 
 <script>
@@ -50,6 +58,10 @@ export default {
     removeItem(n) {
       this.eatenList.splice(n, 1);
       EventBus.$emit('updateCharts');
+    },
+    removeAll () {
+      this.eatenList = '';
+      EventBus.$emit('clearCharts');
     },
   },
 };

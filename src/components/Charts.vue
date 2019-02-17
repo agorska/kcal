@@ -100,6 +100,10 @@ export default {
       (this.eatenDetailedList).splice(n, 1);
       this.sumObjectsByKey();
     });
+    EventBus.$on('clearCharts', () => {
+      (this.eatenDetailedList) = '';
+      this.chartData = '';
+    });
   },
   methods: {
     sumObjectsByKey() {
@@ -123,8 +127,8 @@ export default {
       }
       return this.chartData[getKey];
     },
-    calcLeft(key, value){
-      let left = value - (this.getChartValue(key));
+    calcLeft(key, value) {
+      const left = value - (this.getChartValue(key));
       return left < 0 ? 0 : left;
     },
   },

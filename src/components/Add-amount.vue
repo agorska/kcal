@@ -1,6 +1,6 @@
 <template>
   <div class="add-amount">
-    <h4 class="add-amount__item">Picked: {{ foodEaten.food_name }}</h4>
+    <h4 class="add-amount__item">Last picked: {{ foodEaten.food_name }}</h4>
     <div class="add-amount__item--wrap">
       <label for="searchFood" class="default-input">Amount
         <input
@@ -87,7 +87,7 @@ export default {
       if (this.predictor === '' || isNaN(parseFloat(this.predictor))) {
         this.isEmpty = true;
         throw 'Fill the input with number!';
-      } else if (this.foodEaten.food_name == undefined) {
+      } else if (this.foodEaten.food_name === undefined) {
         EventBus.$emit('searchEmpty');
         throw 'Search and pick something!';
       } else {
