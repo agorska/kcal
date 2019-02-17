@@ -15,6 +15,9 @@ Calculations are based on my own needs. If you want to change it:
 1. Go to components/Charts.vue
 2. Find a whoNorms property in data and replace values.
 
+## Project on GitHub Pages
+
+https://agorska.github.io/kcal/#/
 
 ### Project setup
 ```
