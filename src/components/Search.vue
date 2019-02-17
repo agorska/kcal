@@ -8,6 +8,7 @@
           id="searchFood"
           name="searchFood"
           class="default-input__input center"
+          :class="{ inputEmpty: isSearchEmpty }"
           v-model='search'
           @input="wrapHandleInput()"
           @keyup="detectDeleting()"
@@ -15,6 +16,7 @@
           placeholder="Write a product name"
         />
     </label>
+    <div v-if="isSearchEmpty" class="error-empty-field">Search for food!</div>
     <div v-if="isLoading" class="spinner"></div>
   </section>
 </template>
@@ -41,6 +43,7 @@
 </style>
 
 <script>
+import { EventBus } from './event-bus';
 import { debounce } from 'lodash';
 import axios from 'axios';
 
@@ -51,7 +54,13 @@ export default {
     return {
       search: '',
       isLoading: false,
+      isSearchEmpty: false,
     };
+  },
+  mounted() {
+    EventBus.$on('searchEmpty', () => {
+      this.isSearchEmpty = true;
+    });
   },
   methods: {
     wrapHandleInput() {

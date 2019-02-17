@@ -2,14 +2,23 @@
   <div class="home-page">
     <tabs>
       <tab name="add food" :selected="true" class="home-page__tab">
-        <div class="hide" :class="{ test: alertActive }" ref="notification">Dodano!</div>
+        <transition name="slide-fade">
+          <div class="notification" v-if="show">
+            Added!
+            <i class="material-icons">done</i>
+          </div>
+        </transition>
         <section class="add-food">
-          <search v-on:getList="display($event)" v-on:emptyInput="clearList()"></search>
+          <search
+            v-on:getList="display($event)"
+            v-on:emptyInput="clearList()"
+          >
+          </search>
           <resultsList :searchList="searchList" v-on:pickitem="addToEatenList($event)"></resultsList>
           <addAmount
             :searchList="searchList"
             :foodEaten="foodEaten"
-            v-on:successfullyAdded="showAlert()"
+            v-on:successfullyAdded="showInfo()"
           >
           </addAmount>
         </section>
@@ -25,28 +34,6 @@
 </template>
 
 <style lang="stylus">
-.hide
-  display none
-
-.test
-  display block
-  position absolute
-  position: absolute;
-  background-color red
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  animation: mymove 5s ease;
-
-@keyframes mymove {
-    0% {
-      top: 50%;
-    }
-    100% {
-      top: 0%;
-    }
-}
-
 .home-page
   height 100vh
   &__tab
@@ -60,10 +47,37 @@
     margin 20px auto 20px auto
     box-shadow 0 0 1em rgba(0, 0, 0, 0.3)
 
+.notification
+  width 200px
+  height 50px
+  position absolute
+  right 0
+  z-index 50
+  background-color #fff
+  border-radius 5px
+  box-shadow 0 0 10px rgba(0, 0, 0, 0.5)
+  display flex
+  justify-content center
+  align-items center
+  color var(--tertiary)
+  font-weight 700
+
 .charts-container
   @media screen and (min-width: 900px)
     display grid
     grid-template-columns 30vw 1fr
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>
 
 
@@ -94,7 +108,7 @@ export default {
       searchList: [],
       foodEaten: '',
       foodItemDetails: [],
-      alertActive: false,
+      show: false,
     };
   },
   methods: {
@@ -108,13 +122,9 @@ export default {
     clearList() {
       this.searchList = '';
     },
-    showAlert(){
-      this.alertActive = true;
-      const notification = this.$refs.notification;
-      setTimeout(function(){ 
-        this.alertActive = false;
-        notification.classList.remove("test");
-      }, 1000);
+    showInfo(){
+      this.show = true;
+      setTimeout(() => { this.show = false }, 2000);
     },
   },
 };

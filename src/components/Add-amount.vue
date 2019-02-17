@@ -31,11 +31,6 @@
     &--wrap
       display flex
       align-items flex-end
-.inputEmpty
-  border-bottom 3px solid #000
-  &:focus
-    width 250px
-    border-bottom 3px solid var(--primary)
 </style>
 
 <script>
@@ -92,6 +87,9 @@ export default {
       if (this.predictor === '' || isNaN(parseFloat(this.predictor))) {
         this.isEmpty = true;
         throw 'Fill the input with number!';
+      } else if (this.foodEaten.food_name == undefined) {
+        EventBus.$emit('searchEmpty');
+        throw 'Search and pick something!';
       } else {
         this.isEmpty = false;
       // replace comma with dot
